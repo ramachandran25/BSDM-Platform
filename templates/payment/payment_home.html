@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h2>Payment</h2>
+
+<p>Please scan the QR code below to make the payment.</p>
+
+<img src="{% static 'images/upi_qr.png' %}" alt="UPI QR Code" width="250">
+
+<p>After payment, please wait for confirmation from Project Admin.</p>
+
+{% endblock %}

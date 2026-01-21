@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<h2>Project Admin Dashboard</h2>
+
+<table border="1">
+<tr>
+    <th>Request ID</th>
+    <th>User</th>
+    <th>Estimated Cost</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for r in requests %}
+<tr>
+    <td>{{ r.request_id }}</td>
+    <td>{{ r.user.email }}</td>
+    <td>{{ r.estimated_cost|default:"-" }}</td>
+    <td>{{ r.get_status_display }}</td>
+    <td>
+        <a href="/project-admin/request/{{ r.request_id }}/">Open</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}

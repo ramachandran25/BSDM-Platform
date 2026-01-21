@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<h2>Login</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Email</label>
+    <input type="text" name="username" required>
+
+    <label>Password</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Login</button>
+</form>
+
+<p style="margin-top:15px;">
+    <a href="{% url 'password_reset' %}">Forgot password?</a>
+</p>
+
+<p style="margin-top:15px;">
+    New user?
+    <a href="{% url 'register' %}">Create an account</a>
+</p>
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<h1>Student Project Support</h1>
+
+<p>
+We help students successfully complete academic projects with
+expert guidance, implementation support, and documentation.
+</p>
+
+<hr>
+
+<h3>Our Services</h3>
+<ul>
+    <li>Final Year Engineering Projects</li>
+    <li>Mini Projects & Assignments</li>
+    <li>Python & Django Projects</li>
+    <li>Machine Learning & AI</li>
+    <li>Project Reports & Viva Support</li>
+</ul>
+
+<hr>
+
+<h3>How It Works</h3>
+<ol>
+    <li>Login or register on the platform</li>
+    <li>Create a project request</li>
+    <li>Admin reviews & estimates cost</li>
+    <li>Accept & pay via UPI</li>
+    <li>Receive completed work</li>
+</ol>
+
+{% if not user.is_authenticated %}
+
+<br>
+<a href="{% url 'register' %}">
+    <button>🚀 Get Started</button>
+</a>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<h2>My Profile</h2>
+
+<p>
+<strong>Full Name:</strong>
+{{ user.full_name }}
+</p>
+
+<p>
+<strong>Email:</strong>
+{{ user.email }} (cannot be changed)
+</p>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>First Name</label>
+    {{ form.first_name }}
+
+    <label>Last Name</label>
+    {{ form.last_name }}
+
+    <label>Mobile Number</label>
+    {{ form.mobile_number }}
+
+    <label>College Name</label>
+    {{ form.college_name }}
+
+    <label>Department</label>
+    {{ form.department }}
+
+    <label>Date of Birth</label>
+    {{ form.dob }}
+
+    <button type="submit">Update Profile</button>
+</form>
+
+{% endblock %}

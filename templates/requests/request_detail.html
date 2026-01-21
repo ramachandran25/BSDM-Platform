@@ -1,0 +1,94 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h2>ServiX Details</h2>
+
+<p><strong>Request ID:</strong> {{ request.request_id }}</p>
+<p><strong>Title:</strong> {{ request.title }}</p>
+<p><strong>Description:</strong></p>
+<p>{{ request.description }}</p>
+
+<p><strong>Status:</strong> {{ request.get_status_display }}</p>
+{% if request.estimated_cost %}
+    <p>
+        <strong>Estimated Cost:</strong>
+        ₹ {{ request.estimated_cost }}
+    </p>
+{% else %}
+    <p>
+        <strong>Estimated Cost:</strong>
+        Not estimated yet
+    </p>
+{% endif %}
+<p><strong>Submitted On:</strong> {{ request.created_at }}</p>
+
+<h3>User Attachments</h3>
+
+{% with files=request.attachments.all %}
+    {% if files %}
+        <ul>
+        {% for file in files %}
+            {% if file.uploaded_by == 'USER' %}
+            <li>
+                <a href="{{ file.file.url }}" download>
+                    {{ file.file.name|cut:"request_attachments/" }}
+                </a>
+                <br>
+                <small>
+                    Uploaded on:
+                    {{ file.uploaded_at|date:"d M Y, h:i A" }}
+                </small>
+            </li>
+            {% endif %}
+        {% endfor %}
+	
+	{% if request.status != 'CLOSED' %}
+	<hr>
+	<h4>Add More Attachments</h4>
+
+	<form method="post" enctype="multipart/form-data">
+    		{% csrf_token %}
+    		<input type="file" name="attachments" multiple required>
+    		<button type="submit">Upload</button>
+	</form>
+	{% else %}
+	<p style="color:#b91c1c;">
+    		This ServiX is closed. You can no longer upload attachments.
+	</p>
+	{% endif %}
+
+        </ul>
+    {% else %}
+        <p>No user attachments.</p>
+    {% endif %}
+{% endwith %}
+
+<h3>Admin Attachments</h3>
+
+{% with files=request.attachments.all %}
+    {% if files %}
+        <ul>
+        {% for file in files %}
+            {% if file.uploaded_by == 'ADMIN' %}
+            <li>
+                <a href="{{ file.file.url }}" download>
+                    {{ file.file.name|cut:"request_attachments/" }}
+                </a>
+                <br>
+                <small>
+                    Uploaded on:
+                    {{ file.uploaded_at|date:"d M Y, h:i A" }}
+                </small>
+            </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No admin attachments.</p>
+    {% endif %}
+{% endwith %}
+
+<hr>
+
+<a href="/requests/my/">← Back to My ServiX</a>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<h2>Project Request Details</h2>
+
+<hr>
+
+<h3>Request Information</h3>
+<p><strong>Request ID:</strong> {{ request.request_id }}</p>
+<p><strong>Title:</strong> {{ request.title }}</p>
+<p><strong>Description:</strong><br>{{ request.description }}</p>
+<p><strong>Status:</strong> {{ request.get_status_display }}</p>
+<p>
+    <strong>Estimated Cost:</strong>
+    {% if request.estimated_cost %}
+        ₹ {{ request.estimated_cost }}
+    {% else %}
+        Not estimated
+    {% endif %}
+</p>
+<p><strong>Created On:</strong> {{ request.created_at|date:"d M Y, h:i A" }}</p>
+<p><strong>Last Updated:</strong> {{ request.updated_at|date:"d M Y, h:i A" }}</p>
+
+<hr>
+
+<h3>User Information</h3>
+<p><strong>Email:</strong> {{ request.user.email }}</p>
+<p><strong>Mobile:</strong> {{ request.user.mobile_number }}</p>
+<p><strong>College:</strong> {{ request.user.college_name }}</p>
+<p><strong>Department:</strong> {{ request.user.department }}</p>
+<p><strong>Date of Birth:</strong> {{ request.user.dob|date:"d M Y" }}</p>
+
+<hr>
+
+<h3>User Attachments</h3>
+{% for file in request.attachments.all %}
+    {% if file.uploaded_by == 'USER' %}
+        <p>
+            <a href="{{ file.file.url }}" download>
+                {{ file.file.name }}
+            </a><br>
+            <small>Uploaded: {{ file.uploaded_at|date:"d M Y, h:i A" }}</small>
+        </p>
+    {% endif %}
+{% empty %}
+    <p>No user attachments</p>
+{% endfor %}
+
+<hr>
+
+<h3>Admin Attachments</h3>
+{% for file in request.attachments.all %}
+    {% if file.uploaded_by == 'ADMIN' %}
+        <p>
+            <a href="{{ file.file.url }}" download>
+                {{ file.file.name }}
+            </a><br>
+            <small>Uploaded: {{ file.uploaded_at|date:"d M Y, h:i A" }}</small>
+        </p>
+    {% endif %}
+{% empty %}
+    <p>No admin attachments</p>
+{% endfor %}
+
+<hr>
+
+<h3>Update Request (Project Admin)</h3>
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<label>Status</label><br>
+<select name="status">
+    {% for key, val in request.STATUS_CHOICES %}
+        <option value="{{ key }}" {% if request.status == key %}selected{% endif %}>
+            {{ val }}
+        </option>
+    {% endfor %}
+</select><br><br>
+
+<label>Estimated Cost</label><br>
+<input type="number" step="0.01" name="estimated_cost"
+       value="{{ request.estimated_cost }}"><br><br>
+
+<label>Add Admin Attachments</label><br>
+<input type="file" name="admin_attachments" multiple><br><br>
+
+<button type="submit">Save Changes</button>
+</form>
+
+{% endblock %}
