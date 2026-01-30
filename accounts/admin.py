@@ -18,7 +18,7 @@ class UserAdmin(BaseUserAdmin):
                 'mobile_number',
                 'college_name',
                 'department',
-                'date_of_birth',
+                'dob',
             )
         }),
         ('Permissions', {
@@ -42,7 +42,7 @@ class UserAdmin(BaseUserAdmin):
                 'mobile_number',
                 'college_name',
                 'department',
-                'date_of_birth',
+                'dob',
             ),
         }),
     )

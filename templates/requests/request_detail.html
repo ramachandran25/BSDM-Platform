@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h2>ServiX Details</h2>
+<h2>Request Details</h2>
 
 <p><strong>Request ID:</strong> {{ request.request_id }}</p>
 <p><strong>Title:</strong> {{ request.title }}</p>
@@ -53,7 +53,7 @@
 	</form>
 	{% else %}
 	<p style="color:#b91c1c;">
-    		This ServiX is closed. You can no longer upload attachments.
+    		This Request is closed. You can no longer upload attachments.
 	</p>
 	{% endif %}
 
@@ -90,5 +90,5 @@
 
 <hr>
 
-<a href="/requests/my/">← Back to My ServiX</a>
+<a href="/requests/my/">← Back to My Request</a>
 {% endblock %}

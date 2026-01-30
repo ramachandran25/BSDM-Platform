@@ -1,7 +1,7 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-<h2>My ServiX</h2>
+<h2>My Requests</h2>
 
 {% if requests %}
 <table border="1" cellpadding="8">
@@ -36,7 +36,7 @@
          </p>
 
          <a href="/requests/{{ req.request_id }}/">
-             <button>Open ServiX</button>
+             <button>Open Requests</button>
          </a>
      </div>
      {% endfor %}

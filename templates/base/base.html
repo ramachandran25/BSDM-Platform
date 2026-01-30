@@ -13,24 +13,30 @@
 <body>
 
 <div class="navbar">
-    <strong>Student Projects</strong>
+    <div class="navbar-title">Student Projects</div>
 
-    <span class="right">
+    <div class="right">
         {% if user.is_authenticated %}
-            <a href="/requests/dashboard/">Home</a>
-            <a href="/requests/new/">Create ServiX</a>
-            <a href="/requests/my/">My ServiX</a>
-            <a href="/payment/">Payment</a>
+            <a href="/requests/dashboard/" >Home</a>
+            <a href="/requests/new/" >Create Request</a>
+            <a href="/requests/my/" >My Requests</a>
+            <a href="/payment/" >Payment</a>
 
             {% if user.is_project_admin %}
                 <a href="/project-admin/">Project Admin</a>
             {% endif %}
-	    <a href="/accounts/profile/">Profile</a>
-            <a href="/accounts/logout/">Logout</a>
+	    <a href="/accounts/profile/" >Profile</a>
+
+	    <form id="logout-form" method="post" action="/accounts/logout/">
+    		{% csrf_token %}
+    		<button type="button" id="logout-btn">
+        	    Logout
+    		</button>
+	    </form>
         {% else %}
-            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'login' %}" >Login</a>
         {% endif %}
-    </span>
+    </div>
 </div>
 
 <div class="container">
@@ -48,8 +54,17 @@
 </div>
 
 <div class="footer">
-    © {{ now|date:"Y" }} Student Project Portal
+    © {{ now|date:"Y" }} Project Portal
 </div>
+
+<script>
+document.getElementById("logout-btn").addEventListener("click", function () {
+    if (confirm("Are you sure you want to logout?")) {
+        document.getElementById("logout-form").submit();
+    }
+});
+</script>
+
 
 </body>
 </html>
