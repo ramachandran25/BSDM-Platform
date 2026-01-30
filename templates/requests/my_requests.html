@@ -1,18 +1,10 @@
+
 {% extends "base/base.html" %}
 
 {% block content %}
 <h2>My Requests</h2>
 
 {% if requests %}
-<table border="1" cellpadding="8">
-    <tr>
-        <th>Request ID</th>
-        <th>Title</th>
-        <th>Estimated Cost</th>
-	<th>Status</th>
-        <th>Submitted On</th>
-    </tr>
-
     {% for req in requests %}
     <div class="card">
          <h3>{{ req.title }}</h3>
@@ -41,11 +33,8 @@
      </div>
      {% endfor %}
 
-
-</table>
-{% else %}
+     {% else %}
 <p>No requests submitted yet.</p>
 {% endif %}
 
 {% endblock %}
-

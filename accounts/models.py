@@ -2,6 +2,9 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.db import models
+from django.contrib.auth.models import User
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -37,6 +40,16 @@ class User(AbstractUser):
     college_name = models.CharField(max_length=255)
     department = models.CharField(max_length=100)
     dob = models.DateField(null=True, blank=True)
+
+    profile_theme = models.CharField(
+        max_length=10,
+        choices=[
+            ("light", "Light"),
+            ("dark", "Dark"),
+            ("system", "System"),
+        ],
+        default="system",
+    )
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

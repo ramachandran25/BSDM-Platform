@@ -7,6 +7,9 @@ from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
 from .profile_forms import ProfileForm
 
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+import json
 
 def register(request):
     if request.method == 'POST':
@@ -37,3 +40,17 @@ def profile(request):
         'accounts/profile.html',
         {'form': form}
     )
+
+@require_POST
+def save_theme(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": "ignored"}, status=200)
+
+    data = json.loads(request.body)
+    theme = data.get("theme", "system")
+
+    user = request.user
+    user.profile_theme = theme
+    user.save(update_fields=["profile_theme"])
+
+    return JsonResponse({"status": "ok"})
