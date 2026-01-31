@@ -8,7 +8,6 @@ from django.contrib import messages
 from .models import ProjectRequest, RequestAttachment
 from .forms import ProjectRequestForm
 
-
 @login_required
 def dashboard(request):
     return render(request, 'requests/dashboard.html')
@@ -52,11 +51,9 @@ def my_requests(request):
         user=request.user
     ).order_by('-created_at')
 
-    return render(
-        request,
-        'requests/my_requests.html',
-        {'requests': requests}
-    )
+    return render(request, 'requests/my_requests.html', {
+        'requests': requests
+    })
 
 
 @login_required

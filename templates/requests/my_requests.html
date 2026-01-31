@@ -1,40 +1,49 @@
-
 {% extends "base/base.html" %}
 
 {% block content %}
-<h2>My Requests</h2>
+<div class="page-container">
+  <h2>My Requests</h2>
 
-{% if requests %}
-    {% for req in requests %}
-    <div class="card">
-         <h3>{{ req.title }}</h3>
+  <table class="sn-list">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Short Description</th>
+        <th>Status</th>
+        <th>Estimated Cost</th>
+        <th>Created</th>
+      </tr>
+    </thead>
 
-         <p><strong>ID:</strong> {{ req.request_id }}</p>
-
-         <p>
-             <strong>Status:</strong>
-             <span class="badge badge-{{ req.status|lower }}">
-                   {{ req.get_status_display }}
-             </span>
-         </p>
-
-         <p>
-            <strong>Estimated Cost:</strong>
+    <tbody>
+    {% if requests %}
+      {% for req in requests %}
+        <tr onclick="window.location.href='/requests/{{ req.request_id }}/'">
+          <td>{{ req.request_id }}</td>
+          <td>{{ req.title }}</td>
+          <td>
+            <span class="status-badge status-{{ req.status|lower }}">
+              {{ req.get_status_display }}
+            </span>
+          </td>
+          <td>
             {% if req.estimated_cost %}
-               ₹ {{ req.estimated_cost }}
+              ₹{{ req.estimated_cost }}
             {% else %}
-               Not estimated
+              –
             {% endif %}
-         </p>
+          </td>
+          <td>{{ req.created_at|date:"d M Y" }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No requests found</td>
+        </tr>
+      {% endfor %}
 
-         <a href="/requests/{{ req.request_id }}/">
-             <button>Open Requests</button>
-         </a>
-     </div>
-     {% endfor %}
+      {% endif %}
 
-     {% else %}
-<p>No requests submitted yet.</p>
-{% endif %}
-
+    </tbody>
+  </table>
+</div>
 {% endblock %}

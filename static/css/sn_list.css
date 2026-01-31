@@ -1,0 +1,51 @@
+.sn-list {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.sn-list th {
+  background: #f5f6f8;
+  padding: 10px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #dcdfe4;
+}
+
+.sn-list td {
+  padding: 10px;
+  border-bottom: 1px solid #eef0f4;
+}
+
+.sn-list tr:hover {
+  background-color: #f9fafb;
+  cursor: pointer;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-new {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.status-in_progress {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.status-estimated {
+  background: #fff7ed;
+  color: #07f8f8;
+}
+
+.status-completed {
+  background: #ecfdf5;
+  color: #065f46;
+}

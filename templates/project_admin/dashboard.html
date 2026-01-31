@@ -2,29 +2,52 @@
 
 {% block content %}
 
+<div class="page-container">
+
+
 <h2>Project Admin Dashboard</h2>
 
-<table border="1">
-<tr>
-    <th>Request ID</th>
-    <th>User</th>
-    <th>Estimated Cost</th>
-    <th>Status</th>
-    <th>Action</th>
-</tr>
+  <table class="sn-list">
+    <thead>
+      <tr>
+        <th>Number</th>
+        <th>Short Description</th>
+        <th>Status</th>
+        <th>Estimated Cost</th>
+        <th>Created</th>
+      </tr>
+    </thead>
 
-{% for r in requests %}
-<tr>
-    <td>{{ r.request_id }}</td>
-    <td>{{ r.user.email }}</td>
-    <td>{{ r.estimated_cost|default:"-" }}</td>
-    <td>{{ r.get_status_display }}</td>
-    <td>
-        <a href="/project-admin/request/{{ r.request_id }}/">Open</a>
-    </td>
-</tr>
-{% endfor %}
-</table>
+    <tbody>
+    {% if requests %}
+      {% for req in requests %}
+        <tr onclick="window.location.href='/project-admin/{{ req.request_id }}/'">
+          <td>{{ req.request_id }}</td>
+          <td>{{ req.title }}</td>
+          <td>
+            <span class="status-badge status-{{ req.status|lower }}">
+              {{ req.get_status_display }}
+            </span>
+          </td>
+          <td>
+            {% if req.estimated_cost %}
+              ₹{{ req.estimated_cost }}
+            {% else %}
+              –
+            {% endif %}
+          </td>
+          <td>{{ req.created_at|date:"d M Y" }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No requests found</td>
+        </tr>
+      {% endfor %}
 
+      {% endif %}
 
+    </tbody>
+  </table>
+</div>
 {% endblock %}
+

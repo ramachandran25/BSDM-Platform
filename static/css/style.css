@@ -242,6 +242,32 @@ input:focus, textarea:focus {
 }
 
 /* ========== BUTTONS ========== */
+
+/* ===== Primary pill button (shared) ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #6366f1, #38bdf8);
+  color: #ffffff;
+
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+
 button {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: #fff;
@@ -277,3 +303,4 @@ button:hover {
     padding: 24px;
     font-size: 14px;
 }
+

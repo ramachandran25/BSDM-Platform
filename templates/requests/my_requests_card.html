@@ -1,0 +1,40 @@
+
+{% extends "base/base.html" %}
+
+{% block content %}
+<h2>My Requests</h2>
+
+{% if requests %}
+    {% for req in requests %}
+    <div class="card">
+         <h3>{{ req.title }}</h3>
+
+         <p><strong>ID:</strong> {{ req.request_id }}</p>
+
+         <p>
+             <strong>Status:</strong>
+             <span class="badge badge-{{ req.status|lower }}">
+                   {{ req.get_status_display }}
+             </span>
+         </p>
+
+         <p>
+            <strong>Estimated Cost:</strong>
+            {% if req.estimated_cost %}
+               ₹ {{ req.estimated_cost }}
+            {% else %}
+               Not estimated
+            {% endif %}
+         </p>
+
+         <a href="/requests/{{ req.request_id }}/">
+             <button>Open Requests</button>
+         </a>
+     </div>
+     {% endfor %}
+
+     {% else %}
+<p>No requests submitted yet.</p>
+{% endif %}
+
+{% endblock %}
